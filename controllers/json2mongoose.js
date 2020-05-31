@@ -1,4 +1,6 @@
 const User = require('models/user');
+const Ajv = require('ajv');
+const userSchema = require('schemas/routes/user');
 
 const profiles = [
   {
@@ -319,7 +321,15 @@ const profiles = [
 ];
 
 const save2db = () => {
-  profiles.forEach(profile => User.create(profile))
+  const ajv = new Ajv();
+  const validate = ajv.compile(userSchema);
+  profiles.forEach(profile => { 
+    const valid = validate(profile)
+    if (!valid) console.log(validation.errors);
+    else User.create(profile);
+  });
+  // const valid = validate(profiles);
+  // if (!valid) console.log(validate.errors);
 };
 
 module.exports.save2db = save2db;
