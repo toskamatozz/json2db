@@ -328,8 +328,6 @@ const save2db = () => {
     if (!valid) console.log(validation.errors);
     else User.create(profile);
   });
-  // const valid = validate(profiles);
-  // if (!valid) console.log(validate.errors);
 };
 
 module.exports.save2db = save2db;
